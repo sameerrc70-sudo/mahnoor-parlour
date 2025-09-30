@@ -73,13 +73,12 @@
   <section id="gallery" class="py-16 px-6 bg-white">
     <h2 class="text-3xl font-bold text-center mb-10">Gallery</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Yahan apne images ke links daal sakte ho -->
-      <img src="https://i.pinimg.com/originals/4d/7a/2e/4d7a2ea3ccf3d16da68ac327b3f2c6d2.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="">
-      <img src="https://i.pinimg.com/originals/ce/85/94/ce8594bc9e25454497eb01b4d82e9bda.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="">
-      <img src="https://i.pinimg.com/originals/d2/2a/09/d22a09106f05dc68b2d090882d5fcab2.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="">
-      <img src="https://i.pinimg.com/originals/26/02/bf/2602bf0099355fa0f74b44f2cc34e8dd.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="">
-      <img src="https://i.pinimg.com/originals/ea/48/72/ea48729b39f451907dd2d52a90ccf828.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="">
-      <img src="https://i.pinimg.com/originals/35/37/09/353709e7f016ba2df332f5cc9fbb21ad.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="">
+      <img src="https://i.pinimg.com/originals/4d/7a/2e/4d7a2ea3ccf3d16da68ac327b3f2c6d2.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Bridal Makeup">
+      <img src="https://i.pinimg.com/originals/ce/85/94/ce8594bc9e25454497eb01b4d82e9bda.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Facial Treatment">
+      <img src="https://i.pinimg.com/originals/d2/2a/09/d22a09106f05dc68b2d090882d5fcab2.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Hair Styling">
+      <img src="https://i.pinimg.com/originals/26/02/bf/2602bf0099355fa0f74b44f2cc34e8dd.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Mehndi Design">
+      <img src="https://i.pinimg.com/originals/ea/48/72/ea48729b39f451907dd2d52a90ccf828.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Party Makeup">
+      <img src="https://i.pinimg.com/originals/35/37/09/353709e7f016ba2df332f5cc9fbb21ad.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Custom Service">
     </div>
   </section>
 
@@ -90,17 +89,42 @@
       <form action="https://wa.me/923353408730" method="get" target="_blank">
         <label class="block mb-2 font-bold">Name</label>
         <input type="text" name="name" required class="w-full mb-4 p-2 border rounded-lg" placeholder="Your name">
+        
         <label class="block mb-2 font-bold">Phone</label>
         <input type="tel" name="phone" required pattern="[0-9]{11}" class="w-full mb-4 p-2 border rounded-lg" placeholder="03XXXXXXXXX">
+        
         <label class="block mb-2 font-bold">Message</label>
         <textarea name="text" required class="w-full mb-4 p-2 border rounded-lg" placeholder="Your message"></textarea>
-        <button type="submit" class="btn-red w-full px-6 py-3 rounded-lg">Send via WhatsApp</button>
+        
+        <label class="block mb-2 font-bold">Select Service</label>
+        <select name="service" required class="w-full mb-4 p-2 border rounded-lg">
+          <option value="">-- Choose a service --</option>
+          <option value="Bridal Makeup">Bridal Makeup</option>
+          <option value="Facials & Skin Care">Facials & Skin Care</option>
+          <option value="Hair Styling">Hair Styling</option>
+          <option value="Mehndi Designs">Mehndi Designs</option>
+          <option value="Party Makeup">Party Makeup</option>
+          <option value="Custom Service">Custom Service</option>
+        </select>
+        
+        <button type="submit" class="btn-red w-full px-6 py-3 rounded-lg">Book Now</button>
       </form>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="text-center py-6 bg-gray-200">
     © 2025 Mahnoor Beauty Parlour
   </footer>
+
+  <!-- Smooth Scroll -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
 </body>
 </html>

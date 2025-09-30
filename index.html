@@ -1,122 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mahnoor Beauty Parlour</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .hero-gradient { background: linear-gradient(135deg, #ff4d4d, #990000); }
+    body { box-sizing: border-box; }
+    .hero-gradient { background: linear-gradient(135deg, #ff4d4d, #660000); }
   </style>
 </head>
-<body class="text-gray-800">
+<body class="font-sans text-gray-800">
 
   <!-- Hero Section -->
-  <section class="hero-gradient text-white text-center py-20">
-    <h1 class="text-4xl md:text-6xl font-bold">Mahnoor Beauty Parlour</h1>
-    <p class="mt-4 text-lg md:text-xl">Luxury Care &amp; Beauty Services for You</p>
-    <a href="#booking-form" class="mt-8 inline-block px-6 py-3 bg-white text-red-600 font-bold rounded-full shadow-lg hover:bg-gray-200">
-      Book Now
-    </a>
-  </section>
+  <header class="hero-gradient text-white py-16 text-center">
+    <h1 class="text-4xl font-bold mb-4">Welcome to Mahnoor Beauty Parlour</h1>
+    <p class="text-lg mb-6">Luxury | Elegance | Care</p>
+    <a href="#services" class="px-6 py-3 bg-white text-red-600 font-semibold rounded-full shadow-lg hover:bg-gray-200">Explore Services</a>
+  </header>
 
-  <!-- Services Section -->
-  <section class="py-16 px-6 md:px-20 bg-gray-50">
+  <!-- Services -->
+  <section id="services" class="py-16 px-6 bg-gray-100">
     <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
-    <div class="grid gap-8 md:grid-cols-3">
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
-        <h3 class="text-xl font-semibold mb-2">Bridal Makeup</h3>
-        <p>Elegant bridal looks for your special day.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      
+      <!-- Service Card -->
+      <div class="bg-white rounded-2xl p-6 text-center shadow-md cursor-pointer transform transition duration-300 hover:shadow-red-500 hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4">Bridal Makeup</h3>
+        <p class="mb-4">Elegant and flawless bridal looks for your special day.</p>
+        <button onclick="openForm()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Book Now</button>
       </div>
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
-        <h3 class="text-xl font-semibold mb-2">Facial Treatments</h3>
-        <p>Relaxing and rejuvenating facial care.</p>
+      
+      <!-- Service Card -->
+      <div class="bg-white rounded-2xl p-6 text-center shadow-md cursor-pointer transform transition duration-300 hover:shadow-red-500 hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4">Facial Treatments</h3>
+        <p class="mb-4">Rejuvenating facials with luxury skincare products.</p>
+        <button onclick="openForm()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Book Now</button>
       </div>
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
-        <h3 class="text-xl font-semibold mb-2">Hair Styling</h3>
-        <p>Trendy hairstyles to match your personality.</p>
+      
+      <!-- Service Card -->
+      <div class="bg-white rounded-2xl p-6 text-center shadow-md cursor-pointer transform transition duration-300 hover:shadow-red-500 hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4">Hair Styling</h3>
+        <p class="mb-4">Trendy and elegant hairstyles for all occasions.</p>
+        <button onclick="openForm()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Book Now</button>
       </div>
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
-        <h3 class="text-xl font-semibold mb-2">Manicure &amp; Pedicure</h3>
-        <p>Complete hand and foot care for a polished look.</p>
-      </div>
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
-        <h3 class="text-xl font-semibold mb-2">Mehndi Designs</h3>
-        <p>Beautiful mehndi patterns for every occasion.</p>
-      </div>
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
-        <h3 class="text-xl font-semibold mb-2">Party Makeup</h3>
-        <p>Stylish makeup looks for your events and parties.</p>
-      </div>
+
     </div>
   </section>
 
   <!-- Booking Form -->
-  <section id="booking-form" class="bg-white py-16 px-6 md:px-20">
-    <h2 class="text-3xl font-bold text-center mb-8">Book Your Appointment</h2>
-    <form id="appointmentForm" class="max-w-xl mx-auto bg-gray-50 p-8 rounded-2xl shadow-lg">
-      <div class="mb-4">
-        <label class="block text-left mb-2 font-medium">Name</label>
-        <input type="text" id="name" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-      </div>
-      <div class="mb-4">
-        <label class="block text-left mb-2 font-medium">Phone</label>
-        <input 
-          type="tel" 
-          id="phone" 
-          required 
-          pattern="^((\+92)|92|0)3[0-9]{9}$" 
-          placeholder="03XXXXXXXXX" 
-          title="Please enter a valid Pakistani number e.g. 03XXXXXXXXX"
-          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-      </div>
-      <div class="mb-4">
-        <label class="block text-left mb-2 font-medium">Service</label>
-        <select id="service" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-          <option value="">Select a service</option>
-          <option>Bridal Makeup</option>
-          <option>Facial Treatments</option>
-          <option>Hair Styling</option>
-          <option>Manicure & Pedicure</option>
-          <option>Mehndi Designs</option>
-          <option>Party Makeup</option>
-        </select>
-      </div>
-      <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700">Submit</button>
-    </form>
-  </section>
+  <div id="bookingForm" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center">
+    <div class="bg-white rounded-xl p-8 w-96 shadow-xl">
+      <h2 class="text-2xl font-bold mb-4 text-center">Book Appointment</h2>
+      <form id="form" onsubmit="return sendToWhatsApp(event)">
+        <input type="text" id="name" placeholder="Your Name" required class="w-full mb-3 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-400">
+        <input type="tel" id="phone" placeholder="Phone Number" pattern="^[0-9]{10,15}$" required class="w-full mb-3 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-400">
+        <textarea id="service" placeholder="Service Required" required class="w-full mb-3 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-400"></textarea>
+        <div class="flex justify-between">
+          <button type="button" onclick="closeForm()" class="px-4 py-2 bg-gray-400 text-white rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Next</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-  <!-- Footer -->
-  <footer class="hero-gradient text-white text-center py-6">
-    <p>Contact us: +92 335 3408730</p>
-    <p>&copy; 2025 Mahnoor Beauty Parlour. All Rights Reserved.</p>
-  </footer>
-
-  <!-- WhatsApp Integration -->
   <script>
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const service = document.getElementById('service').value;
-
-      // validate phone with regex
-      const phoneRegex = /^((\+92)|92|0)3[0-9]{9}$/;
-      if(!phoneRegex.test(phone)){
-        alert("Please enter a valid Pakistani number (e.g. 03XXXXXXXXX)");
-        return;
-      }
-
-      if(!name || !phone || !service){
-        alert("Please fill out all fields.");
-        return;
-      }
-
-      const msg = `Hello, I am ${name}. I want to book ${service}. My phone: ${phone}`;
-      const url = `https://wa.me/923353408730?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-    });
+    function openForm() {
+      document.getElementById("bookingForm").classList.remove("hidden");
+    }
+    function closeForm() {
+      document.getElementById("bookingForm").classList.add("hidden");
+    }
+    function sendToWhatsApp(event) {
+      event.preventDefault();
+      let name = document.getElementById("name").value;
+      let phone = document.getElementById("phone").value;
+      let service = document.getElementById("service").value;
+      let url = "https://wa.me/923001234567?text=" 
+                + "Name: " + name + "%0a"
+                + "Phone: " + phone + "%0a"
+                + "Service: " + service;
+      window.open(url, "_blank");
+      closeForm();
+      return false;
+    }
   </script>
 
 </body>

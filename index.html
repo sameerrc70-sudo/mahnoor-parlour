@@ -1,111 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mahnoor Beauty Parlour</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Poppins', sans-serif; }
-    .gradient-bg { background: linear-gradient(135deg, #e11d48, #b91c1c); }
-    .service-card { transition: transform 0.3s, box-shadow 0.3s; }
-    .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
-    .form-box { background: #fff; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; }
+    .hero-gradient { background: linear-gradient(135deg, #ff4d4d, #990000); }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="text-gray-800">
 
   <!-- Hero Section -->
-  <header class="gradient-bg text-white text-center py-20">
-    <h1 class="text-5xl font-bold mb-4">Mahnoor Beauty Parlour</h1>
-    <p class="text-lg">Where Beauty Meets Elegance ✨</p>
-  </header>
+  <section class="hero-gradient text-white text-center py-20">
+    <h1 class="text-4xl md:text-6xl font-bold">Mahnoor Beauty Parlour</h1>
+    <p class="mt-4 text-lg md:text-xl">Luxury Care &amp; Beauty Services for You</p>
+    <a href="#booking-form" class="mt-8 inline-block px-6 py-3 bg-white text-red-600 font-bold rounded-full shadow-lg hover:bg-gray-200">
+      Book Now
+    </a>
+  </section>
 
-  <!-- Services -->
-  <section class="py-16 px-6 max-w-6xl mx-auto">
-    <h2 class="text-3xl font-bold text-center text-red-700 mb-12">Our Services</h2>
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="bg-white p-8 rounded-2xl shadow-lg service-card text-center">
-        <h3 class="text-xl font-semibold text-red-600 mb-3">Hair Styling</h3>
-        <p class="text-gray-600">Trendy haircuts and professional styling.</p>
-        <button onclick="openForm('Hair Styling')" class="mt-4 px-5 py-2 rounded-full gradient-bg text-white font-medium">Book Now</button>
+  <!-- Services Section -->
+  <section class="py-16 px-6 md:px-20 bg-gray-50">
+    <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+    <div class="grid gap-8 md:grid-cols-3">
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-semibold mb-2">Bridal Makeup</h3>
+        <p>Elegant bridal looks for your special day.</p>
       </div>
-      <div class="bg-white p-8 rounded-2xl shadow-lg service-card text-center">
-        <h3 class="text-xl font-semibold text-red-600 mb-3">Facial & Skin Care</h3>
-        <p class="text-gray-600">Premium facials for glowing skin.</p>
-        <button onclick="openForm('Facial & Skin Care')" class="mt-4 px-5 py-2 rounded-full gradient-bg text-white font-medium">Book Now</button>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-semibold mb-2">Facial Treatments</h3>
+        <p>Relaxing and rejuvenating facial care.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-semibold mb-2">Hair Styling</h3>
+        <p>Trendy hairstyles to match your personality.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-semibold mb-2">Manicure &amp; Pedicure</h3>
+        <p>Complete hand and foot care for a polished look.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-semibold mb-2">Mehndi Designs</h3>
+        <p>Beautiful mehndi patterns for every occasion.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-semibold mb-2">Party Makeup</h3>
+        <p>Stylish makeup looks for your events and parties.</p>
       </div>
     </div>
   </section>
 
-  <!-- Popup Form -->
-  <div id="bookingForm" class="overlay flex">
-    <div class="form-box">
-      
-    </div>
-  </div>
+  <!-- Booking Form -->
+  <section id="booking-form" class="bg-white py-16 px-6 md:px-20">
+    <h2 class="text-3xl font-bold text-center mb-8">Book Your Appointment</h2>
+    <form id="appointmentForm" class="max-w-xl mx-auto bg-gray-50 p-8 rounded-2xl shadow-lg">
+      <div class="mb-4">
+        <label class="block text-left mb-2 font-medium">Name</label>
+        <input type="text" id="name" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+      </div>
+      <div class="mb-4">
+        <label class="block text-left mb-2 font-medium">Phone</label>
+        <input type="tel" id="phone" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+      </div>
+      <div class="mb-4">
+        <label class="block text-left mb-2 font-medium">Service</label>
+        <select id="service" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+          <option value="">Select a service</option>
+          <option>Bridal Makeup</option>
+          <option>Facial Treatments</option>
+          <option>Hair Styling</option>
+          <option>Manicure & Pedicure</option>
+          <option>Mehndi Designs</option>
+          <option>Party Makeup</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700">Submit</button>
+    </form>
+  </section>
 
+  <!-- Footer -->
+  <footer class="hero-gradient text-white text-center py-6">
+    <p>Contact us: +92 335 3408730</p>
+    <p>&copy; 2025 Mahnoor Beauty Parlour. All Rights Reserved.</p>
+  </footer>
+
+  <!-- WhatsApp Integration -->
   <script>
-    function openForm(service) {
-      document.getElementById('service').value = service;
-      document.getElementById('bookingForm').style.display = 'flex';
-    }
-    function closeForm() {
-      document.getElementById('bookingForm').style.display = 'none';
-    }
-    function sendWhatsApp() {
-      let name = document.getElementById('name').value;
-      let phone = document.getElementById('phone').value;
-      let service = document.getElementById('service').value;
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const service = document.getElementById('service').value;
 
-      let msg = `Hello, my name is ${name}. I want to book ${service}. My contact number is ${phone}.`;
-      let url = "https://wa.me/923353408730?text=" + encodeURIComponent(msg);
+      if(!name || !phone || !service){
+        alert("Please fill out all fields.");
+        return;
+      }
 
-      window.open(url, "_blank");
-      closeForm();
-    }
+      const msg = `Hello, I am ${name}. I want to book ${service}. My phone: ${phone}`;
+      const url = `https://wa.me/923353408730?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    });
   </script>
 
 </body>
 </html>
-<section id="book" class="py-20 bg-white">
-  <div class="max-w-xl mx-auto text-center">
-    <h2 class="text-4xl font-bold mb-6">Book Appointment</h2>
-    <form id="bookingForm" class="space-y-4 bg-gray-100 p-6 rounded-xl shadow-lg">
-      <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-lg" required>
-      <input type="text" id="service" placeholder="Service (e.g. Facial, Makeup)" class="w-full p-3 border rounded-lg" required>
-      <input type="date" id="date" class="w-full p-3 border rounded-lg" required>
-      <input type="time" id="time" class="w-full p-3 border rounded-lg" required>
-      <button type="submit" class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition">
-        Next
-      </button>
-    </form>
-  </div>
-</section>
-
-<script>
-document.getElementById("bookingForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // form reload hone se rokna
-
-  // Values uthao
-  let name = document.getElementById("name").value.trim();
-  let service = document.getElementById("service").value.trim();
-  let date = document.getElementById("date").value;
-  let time = document.getElementById("time").value;
-
-  // Agar koi empty ho toh alert dikhado
-  if (!name || !service || !date || !time) {
-    alert("Please fill all fields before proceeding!");
-    return;
-  }
-
-  // WhatsApp message build karo
-  let message = `Hello, my name is ${name}. I want to book a ${service} on ${date} at ${time}.`;
-  let phone = "923001234567"; // <-- apna WhatsApp number yahan likho
-
-  let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-  window.open(url, "_blank"); // WhatsApp open hoga
-});
-</script>

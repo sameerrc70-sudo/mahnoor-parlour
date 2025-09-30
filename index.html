@@ -62,10 +62,14 @@
       </div>
       <div class="mb-4">
         <label class="block text-left mb-2 font-medium">Phone</label>
-        <input type="tel" id="phone" required 
-  pattern="^((\+92)|(92)|0)?3[0-9]{9}$" 
-  placeholder="03XXXXXXXXX" 
-  class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+        <input 
+          type="tel" 
+          id="phone" 
+          required 
+          pattern="^((\+92)|92|0)3[0-9]{9}$" 
+          placeholder="03XXXXXXXXX" 
+          title="Please enter a valid Pakistani number e.g. 03XXXXXXXXX"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
       </div>
       <div class="mb-4">
         <label class="block text-left mb-2 font-medium">Service</label>
@@ -93,9 +97,16 @@
   <script>
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
       const service = document.getElementById('service').value;
+
+      // validate phone with regex
+      const phoneRegex = /^((\+92)|92|0)3[0-9]{9}$/;
+      if(!phoneRegex.test(phone)){
+        alert("Please enter a valid Pakistani number (e.g. 03XXXXXXXXX)");
+        return;
+      }
 
       if(!name || !phone || !service){
         alert("Please fill out all fields.");

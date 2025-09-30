@@ -74,3 +74,43 @@
 
 </body>
 </html>
+<section id="book" class="py-20 bg-white">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-6">Book Appointment</h2>
+    <form id="bookingForm" class="space-y-4 bg-gray-100 p-6 rounded-xl shadow-lg">
+      <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-lg" required>
+      <input type="text" id="service" placeholder="Service (e.g. Facial, Makeup)" class="w-full p-3 border rounded-lg" required>
+      <input type="date" id="date" class="w-full p-3 border rounded-lg" required>
+      <input type="time" id="time" class="w-full p-3 border rounded-lg" required>
+      <button type="submit" class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition">
+        Next
+      </button>
+    </form>
+  </div>
+</section>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // form reload hone se rokna
+
+  // Values uthao
+  let name = document.getElementById("name").value.trim();
+  let service = document.getElementById("service").value.trim();
+  let date = document.getElementById("date").value;
+  let time = document.getElementById("time").value;
+
+  // Agar koi empty ho toh alert dikhado
+  if (!name || !service || !date || !time) {
+    alert("Please fill all fields before proceeding!");
+    return;
+  }
+
+  // WhatsApp message build karo
+  let message = `Hello, my name is ${name}. I want to book a ${service} on ${date} at ${time}.`;
+  let phone = "923001234567"; // <-- apna WhatsApp number yahan likho
+
+  let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank"); // WhatsApp open hoga
+});
+</script>

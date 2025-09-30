@@ -5,50 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mahnoor Beauty Parlour</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #e11d48, #b91c1c); }
+    .service-card { transition: transform 0.3s, box-shadow 0.3s; }
+    .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    .form-box { background: #fff; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; }
+  </style>
 </head>
-<body class="bg-gradient-to-r from-red-600 via-pink-600 to-red-700 text-white font-sans">
+<body class="bg-gray-100 text-gray-900">
 
   <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
-    <h1 class="text-5xl md:text-6xl font-extrabold drop-shadow-lg">Mahnoor Beauty Parlour</h1>
-    <p class="mt-4 text-lg md:text-xl text-pink-100">Where beauty meets elegance ✨</p>
-    <a href="#services" class="mt-8 px-6 py-3 bg-white text-red-600 font-semibold rounded-full shadow-lg hover:bg-pink-200 transition">Explore Services</a>
-  </section>
+  <header class="gradient-bg text-white text-center py-20">
+    <h1 class="text-5xl font-bold mb-4">Mahnoor Beauty Parlour</h1>
+    <p class="text-lg">Where Beauty Meets Elegance ✨</p>
+  </header>
 
-  <!-- Services Section -->
-  <section id="services" class="py-16 px-6 bg-white text-gray-800">
-    <h2 class="text-4xl font-bold text-center mb-12 text-red-600">Our Services</h2>
-    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <!-- Service Card -->
-      <div class="bg-gradient-to-b from-red-500 to-pink-600 text-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition">
-        <h3 class="text-2xl font-semibold mb-3">Bridal Makeup</h3>
-        <p>Perfect bridal look with premium products and expertise for your big day 💍</p>
-        <button class="mt-6 px-5 py-2 bg-white text-red-600 rounded-full font-medium hover:bg-gray-100">Book Now</button>
+  <!-- Services -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-red-700 mb-12">Our Services</h2>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="bg-white p-8 rounded-2xl shadow-lg service-card text-center">
+        <h3 class="text-xl font-semibold text-red-600 mb-3">Hair Styling</h3>
+        <p class="text-gray-600">Trendy haircuts and professional styling.</p>
+        <button onclick="openForm('Hair Styling')" class="mt-4 px-5 py-2 rounded-full gradient-bg text-white font-medium">Book Now</button>
       </div>
-      <div class="bg-gradient-to-b from-red-500 to-pink-600 text-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition">
-        <h3 class="text-2xl font-semibold mb-3">Facial & Skincare</h3>
-        <p>Glow with our luxury facials and rejuvenating skincare treatments 🌸</p>
-        <button class="mt-6 px-5 py-2 bg-white text-red-600 rounded-full font-medium hover:bg-gray-100">Book Now</button>
-      </div>
-      <div class="bg-gradient-to-b from-red-500 to-pink-600 text-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition">
-        <h3 class="text-2xl font-semibold mb-3">Hair Styling</h3>
-        <p>Trendy cuts, colors, and styles for every occasion 💇‍♀️</p>
-        <button class="mt-6 px-5 py-2 bg-white text-red-600 rounded-full font-medium hover:bg-gray-100">Book Now</button>
+      <div class="bg-white p-8 rounded-2xl shadow-lg service-card text-center">
+        <h3 class="text-xl font-semibold text-red-600 mb-3">Facial & Skin Care</h3>
+        <p class="text-gray-600">Premium facials for glowing skin.</p>
+        <button onclick="openForm('Facial & Skin Care')" class="mt-4 px-5 py-2 rounded-full gradient-bg text-white font-medium">Book Now</button>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 px-6 text-center bg-gradient-to-r from-red-700 via-pink-600 to-red-700 text-white">
-    <h2 class="text-4xl font-bold mb-6">Get in Touch</h2>
-    <p class="text-lg mb-4">Call us for appointments and bookings</p>
-    <a href="tel:+923353408730" class="px-6 py-3 bg-white text-red-600 rounded-full font-semibold shadow-lg hover:bg-pink-200 transition">📞 +92 335 3408730</a>
-  </section>
+  <!-- Popup Form -->
+  <div id="bookingForm" class="overlay flex">
+    <div class="form-box">
+      <h2 class="text-xl font-bold mb-4">Book Service</h2>
+      <input type="text" id="name" placeholder="Your Name" class="w-full mb-3 p-2 border rounded" required>
+      <input type="text" id="phone" placeholder="Your Phone" class="w-full mb-3 p-2 border rounded" required>
+      <input type="text" id="service" class="w-full mb-3 p-2 border rounded bg-gray-100" readonly>
+      <button onclick="sendWhatsApp()" class="w-full px-5 py-2 gradient-bg text-white rounded">Next</button>
+      <button onclick="closeForm()" class="w-full mt-2 px-5 py-2 bg-gray-400 text-white rounded">Cancel</button>
+    </div>
+  </div>
 
-  <!-- Footer -->
-  <footer class="py-6 text-center text-sm bg-red-900 text-gray-200">
-    © 2025 Mahnoor Beauty Parlour. All Rights Reserved.
-  </footer>
+  <script>
+    function openForm(service) {
+      document.getElementById('service').value = service;
+      document.getElementById('bookingForm').style.display = 'flex';
+    }
+    function closeForm() {
+      document.getElementById('bookingForm').style.display = 'none';
+    }
+    function sendWhatsApp() {
+      let name = document.getElementById('name').value;
+      let phone = document.getElementById('phone').value;
+      let service = document.getElementById('service').value;
+
+      let msg = `Hello, my name is ${name}. I want to book ${service}. My contact number is ${phone}.`;
+      let url = "https://wa.me/923353408730?text=" + encodeURIComponent(msg);
+
+      window.open(url, "_blank");
+      closeForm();
+    }
+  </script>
 
 </body>
 </html>

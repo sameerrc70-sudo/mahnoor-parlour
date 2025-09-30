@@ -112,12 +112,54 @@
   </footer>
 
   <script>
-    document.getElementById("bookingForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const service = document.getElementById("service").value;
+    <!-- Booking Section -->
+<section id="booking" class="py-16 px-6 bg-white">
+  <h2 class="text-3xl font-bold mb-8 text-center text-red-600">Book an Appointment</h2>
+  <form id="bookingForm" class="max-w-lg mx-auto bg-gray-50 p-8 rounded-xl shadow-md">
+    <div class="mb-4">
+      <label class="block text-left mb-2 font-medium">Name</label>
+      <input type="text" id="name" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+    </div>
+    <div class="mb-4">
+      <label class="block text-left mb-2 font-medium">Phone</label>
+      <input type="tel" id="phone" required pattern="^((\+92)|92|0)3[0-9]{9}$" 
+        placeholder="03XXXXXXXXX" 
+        title="Enter a valid Pakistani number e.g. 03XXXXXXXXX" 
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+    </div>
+    <div class="mb-4">
+      <label class="block text-left mb-2 font-medium">Service</label>
+      <select id="service" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+        <option value="">Select a service</option>
+        <option>Bridal Makeup</option>
+        <option>Facials & Skin Care</option>
+        <option>Hair Styling</option>
+        <option>Party Makeup</option>
+        <option>Mehndi / Henna</option>
+        <option>Waxing & Threading</option>
+        <option value="other">Other (type your own)</option>
+      </select>
+    </div>
+    <!-- Hidden input for custom service -->
+    <div id="customServiceDiv" class="mb-4 hidden">
+      <label class="block text-left mb-2 font-medium">Custom Service</label>
+      <input type="text" id="customService" placeholder="Type your service" 
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+    </div>
+    <button type="submit" class="w-full py-3 bg-red-600 text-white font-semibold rounded-lg btn-hover transition">Submit</button>
+  </form>
+</section>
 
+<script>
+  // Show/hide custom service field
+  const serviceSelect = document.getElementById("service");
+  const customServiceDiv = document.getElementById("customServiceDiv");
+  serviceSelect.addEventListener("change", () => {
+    if (serviceSelect.value === "other") {
+      customServiceDiv.classList.remove("hidden");
+      document.getElementById("customService").setAttribute("required", "true");
+    } else {
+      customServiceDiv.classList.add("hidden");
       if (!phone.match(/^((\+92)|92|0)3[0-9]{9}$/)) {
         alert("Please enter a valid Pakistani phone number (03XXXXXXXXX).");
         return;

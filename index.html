@@ -7,99 +7,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: Arial, sans-serif; background: #f3f3f3; }
-
-    .hero-gradient {
-      background: linear-gradient(135deg, #ff4d4d, #b30000);
-      color: white;
-    }
-
-    .service-card {
-      transition: all 0.3s ease;
-    }
-    .service-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(255,0,0,0.4);
-    }
-
-    .btn-red {
-      background-color: #ff4d4d;
-      color: white;
-      transition: all 0.3s ease;
-    }
-    .btn-red:hover {
-      background-color: #b30000;
-      transform: scale(1.05);
-    }
-
-    /* Mini Chat Box */
-    #miniChat {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 300px;
-      max-height: 400px;
-      background: #ff4d4d;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      display: none;
-      flex-direction: column;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      z-index: 9999;
-    }
-
-    #miniChatHeader {
-      background: #b30000;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    #miniChatBody {
-      background: #fff0f0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      overflow-y: auto;
-    }
-
-    #miniChatBody .message {
-      background: #ff4d4d;
-      color: white;
-      padding: 6px 10px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      max-width: 80%;
-    }
-
-    #miniChatBody .userMessage {
-      align-self: flex-end;
-      background: #b30000;
-    }
-
-    #miniChatInput {
-      display: flex;
-      border-top: 1px solid #ccc;
-    }
-
-    #miniChatInput input {
-      flex: 1;
-      padding: 8px;
-      border: none;
-      outline: none;
-    }
-
-    #miniChatInput button {
-      background: #b30000;
-      color: white;
-      padding: 8px 12px;
-      border: none;
-      cursor: pointer;
-    }
-
+    .hero-gradient { background: linear-gradient(135deg, #ff4d4d, #b30000); color: white; }
+    .service-card { transition: all 0.3s ease; }
+    .service-card:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(255,0,0,0.4); }
+    .btn-red { background-color: #ff4d4d; color: white; transition: all 0.3s ease; }
+    .btn-red:hover { background-color: #b30000; transform: scale(1.05); }
   </style>
 </head>
 <body>
@@ -185,16 +97,6 @@
     </div>
   </section>
 
-  <!-- Mini Chat Box -->
-  <div id="miniChat">
-    <div id="miniChatHeader">Chat with Mahnoor Parlour 💬</div>
-    <div id="miniChatBody"></div>
-    <div id="miniChatInput">
-      <input type="text" id="miniChatText" placeholder="Type your message...">
-      <button id="miniChatSend">Send</button>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer class="text-center py-6 bg-gray-200">
     © 2025 Mahnoor Beauty Parlour
@@ -202,38 +104,30 @@
 
   <!-- Scripts -->
   <script>
-    const form = document.getElementById('bookingForm');
-    const miniChat = document.getElementById('miniChat');
-    const sendBtn = document.getElementById('miniChatSend');
-
-    // Show chat on Book Now
-    form.addEventListener('submit', function(e) {
+    // Book Now click => WhatsApp popup
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      miniChat.style.display = 'flex';
-    });
 
-    // Chat send
-    sendBtn.addEventListener('click', function() {
-      const input = document.getElementById('miniChatText');
-      const text = input.value.trim();
-      if(text === '') return;
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value.trim();
 
-      // User message in chat box
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message', 'userMessage');
-      msgDiv.textContent = text;
-      document.getElementById('miniChatBody').appendChild(msgDiv);
-      document.getElementById('miniChatBody').scrollTop = document.getElementById('miniChatBody').scrollHeight;
-      input.value = '';
+      if(!name || !phone || !service || !message) {
+        alert('Please fill all fields.');
+        return;
+      }
 
-      // Fake reply
-      setTimeout(() => {
-        const replyDiv = document.createElement('div');
-        replyDiv.classList.add('message');
-        replyDiv.textContent = "Thanks! We'll contact you soon 💖";
-        document.getElementById('miniChatBody').appendChild(replyDiv);
-        document.getElementById('miniChatBody').scrollTop = document.getElementById('miniChatBody').scrollHeight;
-      }, 1000);
+      const text = `Hello!%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
+
+      const waNumber = '923353408730';
+      const waUrl = `https://wa.me/${waNumber}?text=${text}`;
+
+      // small popup window for desktop, or app on mobile
+      const popup = window.open(waUrl, '_blank', 'width=420,height=650,noopener,noreferrer');
+      if(!popup) window.location.href = waUrl;
+
+      alert("WhatsApp will open with your message. Please send it there to complete booking.");
     });
 
     // Smooth scroll

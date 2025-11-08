@@ -6,18 +6,21 @@
   <title>Mahnoor Beauty Parlour</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: Arial, sans-serif; }
+    body { font-family: Arial, sans-serif; background: #f3f3f3; }
+
     .hero-gradient {
       background: linear-gradient(135deg, #ff4d4d, #b30000);
       color: white;
     }
+
     .service-card {
       transition: all 0.3s ease;
     }
     .service-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+      box-shadow: 0 10px 25px rgba(255,0,0,0.4);
     }
+
     .btn-red {
       background-color: #ff4d4d;
       color: white;
@@ -28,34 +31,78 @@
       transform: scale(1.05);
     }
 
-    /* Chat Box Styling */
-    #chatBox {
+    /* Mini Chat Box */
+    #miniChat {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 320px;
-      background: white;
+      width: 300px;
+      max-height: 400px;
+      background: #ff4d4d;
       border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       display: none;
-      z-index: 1000;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
       overflow: hidden;
-      animation: fadeIn 0.3s ease;
+      z-index: 9999;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #chatHeader {
-      background: linear-gradient(135deg, #ff4d4d, #b30000);
+
+    #miniChatHeader {
+      background: #b30000;
       color: white;
       padding: 10px;
       font-weight: bold;
       text-align: center;
+      cursor: pointer;
     }
+
+    #miniChatBody {
+      background: #fff0f0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    #miniChatBody .message {
+      background: #ff4d4d;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      max-width: 80%;
+    }
+
+    #miniChatBody .userMessage {
+      align-self: flex-end;
+      background: #b30000;
+    }
+
+    #miniChatInput {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #miniChatInput input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      outline: none;
+    }
+
+    #miniChatInput button {
+      background: #b30000;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+    }
+
   </style>
 </head>
-<body class="bg-gray-100">
+<body>
 
   <!-- Hero Section -->
   <section class="hero-gradient text-center py-16">
@@ -95,6 +142,19 @@
     </div>
   </section>
 
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-16 px-6 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-10">Gallery</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <img src="https://i.pinimg.com/originals/4d/7a/2e/4d7a2ea3ccf3d16da68ac327b3f2c6d2.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Bridal Makeup">
+      <img src="https://i.pinimg.com/originals/ce/85/94/ce8594bc9e25454497eb01b4d82e9bda.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Facial Treatment">
+      <img src="https://i.pinimg.com/originals/d2/2a/09/d22a09106f05dc68b2d090882d5fcab2.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Hair Styling">
+      <img src="https://i.pinimg.com/originals/26/02/bf/2602bf0099355fa0f74b44f2cc34e8dd.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Mehndi Design">
+      <img src="https://i.pinimg.com/originals/ea/48/72/ea48729b39f451907dd2d52a90ccf828.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Party Makeup">
+      <img src="https://i.pinimg.com/originals/35/37/09/353709e7f016ba2df332f5cc9fbb21ad.jpg" class="w-full h-64 object-cover rounded-xl shadow" alt="Custom Service">
+    </div>
+  </section>
+
   <!-- Contact Section -->
   <section id="contact" class="py-16 px-6">
     <h2 class="text-3xl font-bold text-center mb-10">Contact Us</h2>
@@ -125,13 +185,13 @@
     </div>
   </section>
 
-  <!-- Chat Box -->
-  <div id="chatBox">
-    <div id="chatHeader">Chat with Mahnoor Parlour 💬</div>
-    <div class="p-4">
-      <p class="text-gray-600 text-sm mb-2">Our representative will reply soon.</p>
-      <textarea id="chatInput" rows="3" class="w-full p-2 border rounded-lg mb-2" placeholder="Type your message..."></textarea>
-      <button id="sendChat" class="btn-red w-full py-2 rounded-lg">Send</button>
+  <!-- Mini Chat Box -->
+  <div id="miniChat">
+    <div id="miniChatHeader">Chat with Mahnoor Parlour 💬</div>
+    <div id="miniChatBody"></div>
+    <div id="miniChatInput">
+      <input type="text" id="miniChatText" placeholder="Type your message...">
+      <button id="miniChatSend">Send</button>
     </div>
   </div>
 
@@ -140,27 +200,48 @@
     © 2025 Mahnoor Beauty Parlour
   </footer>
 
+  <!-- Scripts -->
   <script>
     const form = document.getElementById('bookingForm');
-    const chatBox = document.getElementById('chatBox');
-    const sendChat = document.getElementById('sendChat');
+    const miniChat = document.getElementById('miniChat');
+    const sendBtn = document.getElementById('miniChatSend');
 
+    // Show chat on Book Now
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      chatBox.style.display = 'block';
+      miniChat.style.display = 'flex';
     });
 
-    sendChat.addEventListener('click', function() {
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const service = document.getElementById('service').value;
-      const userMsg = document.getElementById('chatInput').value;
-      const msg = `Name: ${name}%0APhone: ${phone}%0AService: ${service}%0AMessage: ${userMsg}`;
-      const whatsapp = `https://wa.me/923353408730?text=${msg}`;
-      fetch(whatsapp);
-      alert("Your message has been sent successfully! We'll contact you shortly 💕");
-      chatBox.style.display = 'none';
-      form.reset();
+    // Chat send
+    sendBtn.addEventListener('click', function() {
+      const input = document.getElementById('miniChatText');
+      const text = input.value.trim();
+      if(text === '') return;
+
+      // User message in chat box
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', 'userMessage');
+      msgDiv.textContent = text;
+      document.getElementById('miniChatBody').appendChild(msgDiv);
+      document.getElementById('miniChatBody').scrollTop = document.getElementById('miniChatBody').scrollHeight;
+      input.value = '';
+
+      // Fake reply
+      setTimeout(() => {
+        const replyDiv = document.createElement('div');
+        replyDiv.classList.add('message');
+        replyDiv.textContent = "Thanks! We'll contact you soon 💖";
+        document.getElementById('miniChatBody').appendChild(replyDiv);
+        document.getElementById('miniChatBody').scrollTop = document.getElementById('miniChatBody').scrollHeight;
+      }, 1000);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
     });
   </script>
 

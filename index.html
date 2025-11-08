@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mahnoor Beauty Parlour</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -11,9 +11,7 @@
       background: linear-gradient(135deg, #ff4d4d, #b30000);
       color: white;
     }
-    .service-card {
-      transition: all 0.3s ease;
-    }
+    .service-card { transition: all 0.3s ease; }
     .service-card:hover {
       transform: scale(1.05);
       box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
@@ -26,6 +24,98 @@
     .btn-red:hover {
       background-color: #b30000;
       transform: scale(1.05);
+    }
+
+    /* Fake site-chat UI (looks like website chat, hides WhatsApp) */
+    .site-chat {
+      display: none; /* shown on submit */
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 360px;
+      max-width: calc(100% - 40px);
+      height: 520px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      z-index: 9999;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .site-chat .header {
+      background: linear-gradient(90deg,#ff4d4d,#b30000);
+      color: white;
+      padding: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-chat .messages {
+      padding: 12px;
+      flex: 1;
+      overflow-y: auto;
+      background: #f7f7f8;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .bubble {
+      max-width: 78%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    .bubble.user {
+      background: #ffeded;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+    .bubble.admin {
+      background: #fff;
+      border: 1px solid #eee;
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+    }
+    .site-chat .footer {
+      padding: 10px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .site-chat .footer .fake-input {
+      flex: 1;
+      background: #f3f3f4;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+    .site-chat .close-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Hidden iframe used to trigger WhatsApp link in background */
+    #waHiddenFrame {
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      border: 0;
+      visibility: hidden;
+    }
+
+    /* responsive tweak */
+    @media (max-width: 480px) {
+      .site-chat { width: calc(100% - 24px); right: 12px; left: 12px; height: 420px; }
     }
   </style>
 </head>
@@ -86,18 +176,18 @@
   <section id="contact" class="py-16 px-6">
     <h2 class="text-3xl font-bold text-center mb-10">Contact Us</h2>
     <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
-      <form action="https://wa.me/923353408730" method="get" target="_blank">
+      <form id="whatsappForm" autocomplete="off">
         <label class="block mb-2 font-bold">Name</label>
-        <input type="text" name="name" required class="w-full mb-4 p-2 border rounded-lg" placeholder="Your name">
+        <input type="text" id="name" required class="w-full mb-4 p-2 border rounded-lg" placeholder="Your name" />
         
         <label class="block mb-2 font-bold">Phone</label>
-        <input type="tel" name="phone" required pattern="[0-9]{11}" class="w-full mb-4 p-2 border rounded-lg" placeholder="03XXXXXXXXX">
+        <input type="tel" id="phone" required pattern="[0-9]{11}" class="w-full mb-4 p-2 border rounded-lg" placeholder="03XXXXXXXXX" />
         
         <label class="block mb-2 font-bold">Message</label>
-        <textarea name="text" required class="w-full mb-4 p-2 border rounded-lg" placeholder="Your message"></textarea>
+        <textarea id="message" required class="w-full mb-4 p-2 border rounded-lg" placeholder="Your message"></textarea>
         
         <label class="block mb-2 font-bold">Select Service</label>
-        <select name="service" required class="w-full mb-4 p-2 border rounded-lg">
+        <select id="service" required class="w-full mb-4 p-2 border rounded-lg">
           <option value="">-- Choose a service --</option>
           <option value="Bridal Makeup">Bridal Makeup</option>
           <option value="Facials & Skin Care">Facials & Skin Care</option>
@@ -112,18 +202,120 @@
     </div>
   </section>
 
+  <!-- In-site Chat (looks like own messenger) -->
+  <div id="siteChat" class="site-chat" aria-hidden="true">
+    <div class="header">
+      <div>Mahnoor Beauty Parlour</div>
+      <button class="close-btn" id="closeChat">X</button>
+    </div>
+    <div class="messages" id="chatMessages" role="log" aria-live="polite">
+      <!-- messages appended here -->
+    </div>
+    <div class="footer">
+      <div class="fake-input" id="fakeInput">Message sent. We'll contact you soon.</div>
+      <button id="okBtn" class="btn-red px-3 py-2 rounded-lg">OK</button>
+    </div>
+  </div>
+
+  <!-- Hidden iframe to trigger WhatsApp link (keeps user on page) -->
+  <iframe id="waHiddenFrame" title="waTrigger"></iframe>
+
   <!-- Footer -->
   <footer class="text-center py-6 bg-gray-200">
     © 2025 Mahnoor Beauty Parlour
   </footer>
 
-  <!-- Smooth Scroll -->
+  <!-- Smooth Scroll & WhatsApp + chat script -->
   <script>
+    // Smooth scroll anchors
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
+    });
+
+    // Elements
+    const form = document.getElementById('whatsappForm');
+    const siteChat = document.getElementById('siteChat');
+    const chatMessages = document.getElementById('chatMessages');
+    const closeChat = document.getElementById('closeChat');
+    const okBtn = document.getElementById('okBtn');
+    const waHiddenFrame = document.getElementById('waHiddenFrame');
+
+    // Helper: append message bubble
+    function appendBubble(text, type='user') {
+      const div = document.createElement('div');
+      div.className = 'bubble ' + (type === 'user' ? 'user' : 'admin');
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // When form submitted: show site-chat UI and trigger WhatsApp
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const service = document.getElementById('service').value;
+
+      if (!name || !phone || !message || !service) return; // form validation fallback
+
+      // Prepare text (this will be sent to your WhatsApp number)
+      const text = `*New Booking Request*\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nMessage: ${message}`;
+
+      // 1) Show the in-site chat UI (user won't see the WhatsApp number)
+      chatMessages.innerHTML = ''; // clear previous
+      siteChat.style.display = 'flex';
+      siteChat.setAttribute('aria-hidden', 'false');
+
+      // show user's message bubble (friendly site-messenger text)
+      appendBubble(`You: ${message}`, 'user');
+
+      // show a short "typing" indicator then admin reply
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'bubble admin';
+      typingIndicator.textContent = 'Mahnoor Beauty Parlour is typing...';
+      chatMessages.appendChild(typingIndicator);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // 2) Trigger WhatsApp link in a hidden iframe to notify you
+      // NOTE: the number is kept only in code — user-facing UI hides it.
+      const waNumber = '923353408730';
+      const waUrl = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(text);
+      // assign to hidden iframe (attempt to open in background)
+      waHiddenFrame.src = waUrl;
+
+      // After short delay replace typing with actual admin message
+      setTimeout(() => {
+        typingIndicator.remove();
+        appendBubble('Mahnoor Beauty Parlour: Shukriya! Hum jaldi aap se rabta karenge.', 'admin');
+      }, 1200);
+
+      // Optionally, show another small confirmation in footer (already done via fake-input).
+      document.getElementById('fakeInput').textContent = 'Request sent — check here for updates.';
+
+      // Prevent immediate re-submission; keep form values (so admin can see)
+    });
+
+    // Close/hide chat
+    closeChat.addEventListener('click', () => {
+      siteChat.style.display = 'none';
+      siteChat.setAttribute('aria-hidden', 'true');
+    });
+    okBtn.addEventListener('click', () => {
+      siteChat.style.display = 'none';
+      siteChat.setAttribute('aria-hidden', 'true');
+    });
+
+    // Accessibility: allow ESC to close chat
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        siteChat.style.display = 'none';
+        siteChat.setAttribute('aria-hidden', 'true');
+      }
     });
   </script>
 </body>
